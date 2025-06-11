@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel Administrativo</title>
+  <title>Painel Admin - NovaCompra</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
     nav { background: #333; color: #fff; padding: 15px; text-align: center; font-weight: bold; }
     .container { max-width: 800px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; }
-    h2 { margin-top: 0; }
-    .product { display: flex; gap: 20px; margin-bottom: 30px; }
-    .product img { width: 150px; height: auto; border-radius: 5px; }
-    .details { flex: 1; }
-    .comments { margin-top: 20px; }
-    .comment { border-top: 1px solid #ddd; padding: 10px 0; }
-    .stars { color: gold; }
+    h2, h3 { margin-top: 0; }
+    input, textarea, button { width: 100%; padding: 10px; margin: 5px 0; font-size: 16px; }
+    .product { border: 1px solid #ddd; padding: 15px; margin-top: 15px; border-radius: 6px; display: flex; gap: 15px; }
+    .product img { width: 120px; height: auto; border-radius: 6px; }
+    .product-info { flex: 1; }
     .login-box { max-width: 300px; margin: 100px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 10px; margin-top: 10px; }
     #admin-panel { display: none; }
   </style>
 </head>
 <body>
+
   <div id="login-box" class="login-box">
     <h2>Login Admin</h2>
     <input type="email" id="email" placeholder="Email">
@@ -32,35 +30,22 @@
   <div id="admin-panel">
     <nav>Painel Administrativo - NovaCompra</nav>
     <div class="container">
-      <h2>Produto: Tênis Casual Masculino</h2>
-      <div class="product">
-        <img src="https://uploaddeimagens.com.br/images/004/789/680/full/tenis-marrom.jpg" alt="Tênis Marrom">
-        <div class="details">
-          <p><strong>Descrição:</strong> Confortável, solado antiderrapante, envio imediato.</p>
-          <p><strong>Preço:</strong> R$ 135,99</p>
-        </div>
-      </div>
-      <h3>Avaliações dos Clientes</h3>
-      <div class="comments">
-        <div class="comment">
-          <p><strong>Carlos A.</strong> <span class="stars">★★★★★</span></p>
-          <p>Tênis muito bonito e confortável. Chegou rápido!</p>
-        </div>
-        <div class="comment">
-          <p><strong>Juliana F.</strong> <span class="stars">★★★★★</span></p>
-          <p>Meu marido adorou! A qualidade é ótima.</p>
-        </div>
-        <div class="comment">
-          <p><strong>Renato M.</strong> <span class="stars">★★★★★</span></p>
-          <p>Produto igual à foto, recomendo demais. Compra segura.</p>
-        </div>
-      </div>
+      <h2>Adicionar Novo Produto</h2>
+      <input type="text" id="nome" placeholder="Nome do Produto" />
+      <input type="text" id="preco" placeholder="Preço (ex: 135.99)" />
+      <input type="text" id="imagem" placeholder="URL da Imagem" />
+      <textarea id="descricao" placeholder="Descrição do Produto"></textarea>
+      <button onclick="adicionarProduto()">Adicionar Produto</button>
+
+      <h3>Produtos Adicionados</h3>
+      <div id="lista-produtos"></div>
     </div>
   </div>
 
   <script>
     const email = "admin@novacompra.com";
     const senha = "admin123";
+
     function login() {
       const e = document.getElementById("email").value;
       const s = document.getElementById("password").value;
@@ -71,6 +56,38 @@
         document.getElementById("login-error").innerText = "Email ou senha inválidos";
       }
     }
+
+    function adicionarProduto() {
+      const nome = document.getElementById("nome").value;
+      const preco = document.getElementById("preco").value;
+      const imagem = document.getElementById("imagem").value;
+      const descricao = document.getElementById("descricao").value;
+
+      if (!nome || !preco || !imagem || !descricao) {
+        alert("Preencha todos os campos.");
+        return;
+      }
+
+      const lista = document.getElementById("lista-produtos");
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = \`
+        <img src="\${imagem}" alt="Produto" />
+        <div class="product-info">
+          <h4>\${nome}</h4>
+          <p><strong>R$ \${preco}</strong></p>
+          <p>\${descricao}</p>
+        </div>
+      \`;
+      lista.appendChild(div);
+
+      // Limpar campos
+      document.getElementById("nome").value = "";
+      document.getElementById("preco").value = "";
+      document.getElementById("imagem").value = "";
+      document.getElementById("descricao").value = "";
+    }
   </script>
+
 </body>
 </html>
