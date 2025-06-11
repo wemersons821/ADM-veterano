@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel Admin - NovaCompra</title>
+  <title>Painel Admin - NovaCompra (Sem Login)</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
     nav { background: #333; color: #fff; padding: 15px; text-align: center; font-weight: bold; }
@@ -13,50 +13,24 @@
     .product { border: 1px solid #ddd; padding: 15px; margin-top: 15px; border-radius: 6px; display: flex; gap: 15px; }
     .product img { width: 120px; height: auto; border-radius: 6px; }
     .product-info { flex: 1; }
-    .login-box { max-width: 300px; margin: 100px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    #admin-panel { display: none; }
   </style>
 </head>
 <body>
 
-  <div id="login-box" class="login-box">
-    <h2>Login Admin</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-    <p id="login-error" style="color: red;"></p>
-  </div>
+  <nav>Painel Administrativo - NovaCompra</nav>
+  <div class="container">
+    <h2>Adicionar Novo Produto</h2>
+    <input type="text" id="nome" placeholder="Nome do Produto" />
+    <input type="text" id="preco" placeholder="Preço (ex: 135.99)" />
+    <input type="text" id="imagem" placeholder="URL da Imagem" />
+    <textarea id="descricao" placeholder="Descrição do Produto"></textarea>
+    <button onclick="adicionarProduto()">Adicionar Produto</button>
 
-  <div id="admin-panel">
-    <nav>Painel Administrativo - NovaCompra</nav>
-    <div class="container">
-      <h2>Adicionar Novo Produto</h2>
-      <input type="text" id="nome" placeholder="Nome do Produto" />
-      <input type="text" id="preco" placeholder="Preço (ex: 135.99)" />
-      <input type="text" id="imagem" placeholder="URL da Imagem" />
-      <textarea id="descricao" placeholder="Descrição do Produto"></textarea>
-      <button onclick="adicionarProduto()">Adicionar Produto</button>
-
-      <h3>Produtos Adicionados</h3>
-      <div id="lista-produtos"></div>
-    </div>
+    <h3>Produtos Adicionados</h3>
+    <div id="lista-produtos"></div>
   </div>
 
   <script>
-    const email = "admin@novacompra.com";
-    const senha = "admin123";
-
-    function login() {
-      const e = document.getElementById("email").value;
-      const s = document.getElementById("password").value;
-      if (e === email && s === senha) {
-        document.getElementById("login-box").style.display = "none";
-        document.getElementById("admin-panel").style.display = "block";
-      } else {
-        document.getElementById("login-error").innerText = "Email ou senha inválidos";
-      }
-    }
-
     function adicionarProduto() {
       const nome = document.getElementById("nome").value;
       const preco = document.getElementById("preco").value;
